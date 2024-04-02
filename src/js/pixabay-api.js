@@ -9,13 +9,15 @@ let searchWord;
 const requestForImgs = async event => {
   let keyWord;
 
+  // Скидаємо сторінку до 1 при кожному новому пошуку
+  page = 1;
+
   if (event.target === document.querySelector('.more-btn')) {
     keyWord = searchWord;
     page += 1;
   } else {
     searchWord = event.target.elements.search.value.trim();
     keyWord = searchWord;
-    page = 1;
   }
 
   const loader = document.querySelector('.loader');
