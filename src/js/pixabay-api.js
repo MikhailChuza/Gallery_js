@@ -44,14 +44,27 @@ const requestForImgs = async event => {
       });
     } else {
       generateMarkup(response.data);
-      document.querySelector('.more-btn').classList.remove('is-hidden');
 
+
+       // Перевіряємо, чи є зображення у галереї
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      if (galleryItems.length > 0) {
+        // Якщо є зображення, показуємо кнопку 
+        document.querySelector('.more-btn').classList.remove('is-hidden');
+      } else {
+        // Якщо немає зображень, приховуємо кнопку
+        document.querySelector('.more-btn').classList.add('is-hidden');
+      }
+
+     
       if (event.target === document.querySelector('.more-btn')) {
         const imgPerOneTime = 15;
         const imgAmount = response.data.totalHits;
         const totalPages = Math.ceil(imgAmount / imgPerOneTime);
 
+       
         if (totalPages <= page) {
+          
           document.querySelector('.more-btn').classList.add('is-hidden');
           iziToast.show({
             message:
@@ -62,6 +75,7 @@ const requestForImgs = async event => {
           });
         }
 
+       
         const item = document.querySelector('.gallery-item');
         const itemHeight = item.getBoundingClientRect().height;
 
@@ -73,7 +87,10 @@ const requestForImgs = async event => {
       }
     }
 
+   
     loader.classList.add('is-hidden');
+
+   
     const lightbox = new SimpleLightbox('.large-image', {
       captionDelay: 250,
       captionsData: 'alt',
