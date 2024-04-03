@@ -44,6 +44,8 @@ const requestForImgs = async event => {
         messageColor: 'white',
         position: 'topCenter',
       });
+      //  ховаю кнопку, якщо немає відповіді по запиту...
+      document.querySelector('.more-btn').classList.add('is-hidden');
     } else {
       generateMarkup(response.data);
 
